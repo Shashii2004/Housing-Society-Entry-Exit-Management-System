@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="visitorApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Management System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="VisitorController">
+
+    <h1>Housing Society Visitor Management</h1>
+
+    <form ng-submit="addVisitor()">
+        <input type="text" ng-model="visitor.name" placeholder="Visitor Name" required>
+        <input type="text" ng-model="visitor.contact" placeholder="Contact Number" required>
+        <input type="text" ng-model="visitor.flat" placeholder="Flat Number" required>
+        <input type="text" ng-model="visitor.purpose" placeholder="Purpose of Visit" required>
+        <button type="submit">Add Visitor</button>
+    </form>
+
+    <h2>Visitor List</h2>
+    
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Flat</th>
+                <th>Purpose</th>
+                <th>Entry Time</th>
+                <th>Exit Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="v in visitors">
+                <td>{{v.name}}</td>
+                <td>{{v.contact}}</td>
+                <td>{{v.flat}}</td>
+                <td>{{v.purpose}}</td>
+                <td>{{v.entryTime}}</td>
+                <td>{{v.exitTime || '-'}}</td>
+                <td>{{v.status}}</td>
+                <td>
+                    <button ng-click="markExit(v)" ng-disabled="v.status === 'Out'">Mark Exit</button>
+                    <button ng-click="deleteVisitor($index)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
